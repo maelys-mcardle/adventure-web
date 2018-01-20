@@ -26,10 +26,15 @@ gulp.task('copy', ['clean'], function () {
     .pipe(gulp.dest('./dist/js/'));
 })
 
-gulp.task('transform', ['clean'], function() {
+gulp.task('generate-react', ['clean'], function() {
   return gulp.src('./src/**/*.jsx')
       .pipe(babel({
           presets: ["react", "es2015"]
+      }))
+      .pipe(browserify({
+        insertGlobals : true,
+        debug : !gulp.env.production,
+        paths: ['./node_modules']
       }))
       .pipe(gulp.dest('./dist/'));
 })
@@ -50,7 +55,7 @@ gulp.task('generate-adventure', ['copy'], function() {
     .pipe(gulp.dest('dist/js'))
 });
 
-gulp.task('default', ['copy', 'generate-adventure', 'transform']);
+gulp.task('default', ['copy', 'generate-adventure', 'generate-react']);
 
 function createStoryJson(storyDirectory, outputFile)
 {
