@@ -1,0 +1,712 @@
+{
+  "title": "The House",
+  "author": "Maëlys McArdle",
+  "description": "A story to demonstrate the game engine.",
+  "rootEntity": {
+    "name": "world",
+    "path": "",
+    "properties": {
+      "location": {
+        "name": "location",
+        "messages": {
+          "frontDoorNotOpen": [
+            "The door must be open in order to go in or out of the house."
+          ],
+          "masterBedroomDoorLocked": [
+            "The master bedroom door is locked and cannot be open."
+          ]
+        },
+        "values": {
+          "house": {
+            "name": "house",
+            "readableName": "house",
+            "text": [],
+            "disabled": false,
+            "relationships": {},
+            "childEntities": [],
+            "rules": {}
+          },
+          "bedroom": {
+            "name": "bedroom",
+            "readableName": "bedroom",
+            "text": [
+              "You are in the bedroom. It hasn't changed since your childhood. Your pink bed sheets. The blue walls. Your plush animals. Your polly pocket and transformers lining the shelves. Traces of your teenage self - the boxes of video games you kept perfectly. The computer you built, and rebuilt. An entire life that suddenly stops midway through university."
+            ],
+            "disabled": false,
+            "relationships": {
+              "upstairsHallway": {
+                "toValue": "upstairsHallway",
+                "text": [],
+                "rules": []
+              }
+            },
+            "childEntities": [
+              {
+                "name": "letter",
+                "path": "world.location.bedroom.objects",
+                "properties": {
+                  "letter": {
+                    "name": "letter",
+                    "messages": {},
+                    "values": {
+                      "notReading": {
+                        "name": "notReading",
+                        "readableName": "notReading",
+                        "text": [
+                          "A letter is on the bedside table."
+                        ],
+                        "disabled": false,
+                        "relationships": {
+                          "reading": {
+                            "toValue": "reading",
+                            "text": [],
+                            "rules": []
+                          }
+                        },
+                        "childEntities": [],
+                        "rules": {}
+                      },
+                      "reading": {
+                        "name": "reading",
+                        "readableName": "reading",
+                        "text": [
+                          "The letter just says \"You are loved.\""
+                        ],
+                        "disabled": false,
+                        "relationships": {
+                          "notReading": {
+                            "toValue": "notReading",
+                            "text": [],
+                            "rules": []
+                          }
+                        },
+                        "childEntities": [],
+                        "rules": {
+                          "value": "notReading"
+                        }
+                      }
+                    },
+                    "actions": [
+                      "read"
+                    ],
+                    "currentValue": "notReading"
+                  }
+                }
+              }
+            ],
+            "rules": {}
+          },
+          "upstairsHallway": {
+            "name": "upstairsHallway",
+            "readableName": "upstairs hallway",
+            "text": [
+              "You are in the upstairs hallway. Paintings line the wall."
+            ],
+            "disabled": false,
+            "relationships": {
+              "bedroom": {
+                "toValue": "bedroom",
+                "text": [],
+                "rules": []
+              },
+              "bathroom": {
+                "toValue": "bathroom",
+                "text": [],
+                "rules": []
+              },
+              "stairs": {
+                "toValue": "stairs",
+                "text": [
+                  "You are going down the stairs."
+                ],
+                "rules": []
+              },
+              "masterBedroom": {
+                "toValue": "masterBedroom",
+                "text": [],
+                "rules": {
+                  "when masterBedroom.objects.door.door is closed": {
+                    "message": "masterBedroomDoorLocked",
+                    "value": ".revert"
+                  }
+                }
+              }
+            },
+            "childEntities": [],
+            "rules": {}
+          },
+          "bathroom": {
+            "name": "bathroom",
+            "readableName": "bathroom",
+            "text": [
+              "You are in the bathroom."
+            ],
+            "disabled": false,
+            "relationships": {
+              "upstairsHallway": {
+                "toValue": "upstairsHallway",
+                "text": [],
+                "rules": []
+              }
+            },
+            "childEntities": [],
+            "rules": {}
+          },
+          "stairs": {
+            "name": "stairs",
+            "readableName": "stairs",
+            "text": [
+              "You are on the stairs. You see the step your mom's head was resting at, as she cried. Only she's not there. "
+            ],
+            "disabled": false,
+            "relationships": {
+              "upstairsHallway": {
+                "toValue": "upstairsHallway",
+                "text": [],
+                "rules": []
+              },
+              "entrance": {
+                "toValue": "entrance",
+                "text": [],
+                "rules": []
+              }
+            },
+            "childEntities": [],
+            "rules": {}
+          },
+          "masterBedroom": {
+            "name": "masterBedroom",
+            "readableName": "master bedroom",
+            "text": [
+              "N/A."
+            ],
+            "disabled": false,
+            "relationships": {
+              "upstairsHallway": {
+                "toValue": "upstairsHallway",
+                "text": [],
+                "rules": {
+                  "when masterBedroom.objects.door.door is closed": {
+                    "message": "masterBedroomDoorLocked",
+                    "value": ".revert"
+                  }
+                }
+              }
+            },
+            "childEntities": [
+              {
+                "name": "door",
+                "path": "world.location.masterBedroom.objects",
+                "properties": {
+                  "door": {
+                    "name": "door",
+                    "messages": {},
+                    "values": {
+                      "open": {
+                        "name": "open",
+                        "readableName": "Open",
+                        "text": [
+                          "The door is open."
+                        ],
+                        "disabled": false,
+                        "relationships": {
+                          "closed": {
+                            "toValue": "closed",
+                            "text": [
+                              "You are closing the door."
+                            ],
+                            "rules": []
+                          }
+                        },
+                        "childEntities": [],
+                        "rules": {
+                          "actions": [
+                            "close",
+                            "describe"
+                          ]
+                        }
+                      },
+                      "closed": {
+                        "name": "closed",
+                        "readableName": "Closed",
+                        "text": [
+                          "The door is closed."
+                        ],
+                        "disabled": false,
+                        "relationships": {
+                          "open": {
+                            "toValue": "open",
+                            "text": [
+                              "You are opening the door."
+                            ],
+                            "rules": []
+                          }
+                        },
+                        "childEntities": [],
+                        "rules": {
+                          "actions": [
+                            "open",
+                            "describe"
+                          ]
+                        }
+                      }
+                    },
+                    "actions": [
+                      "open",
+                      "describe"
+                    ],
+                    "currentValue": "closed"
+                  }
+                }
+              }
+            ],
+            "rules": {}
+          },
+          "livingRoom": {
+            "name": "livingRoom",
+            "readableName": "living room",
+            "text": [
+              "You are in the living room. It hasn't changed since your childhood either. There's a beautiful large window overlooking the street. Your mom lives in here, in the objects left behind. The old wooden spindle. The paintings from your sister. Your dad lives on in the art. The inuit statues he purchased when he lived up north."
+            ],
+            "disabled": false,
+            "relationships": {
+              "entrance": {
+                "toValue": "entrance",
+                "text": [],
+                "rules": []
+              },
+              "kitchen": {
+                "toValue": "kitchen",
+                "text": [],
+                "rules": []
+              }
+            },
+            "childEntities": [],
+            "rules": {}
+          },
+          "entrance": {
+            "name": "entrance",
+            "readableName": "entrance",
+            "text": [
+              "You are at the entrance. That painting covers the hole your dad did when he punched it in anger. You didn't know it was there; he showed you, pride in his voice."
+            ],
+            "disabled": false,
+            "relationships": {
+              "livingRoom": {
+                "toValue": "livingRoom",
+                "text": [],
+                "rules": []
+              },
+              "stairs": {
+                "toValue": "stairs",
+                "text": [
+                  "You are going up the stairs."
+                ],
+                "rules": []
+              },
+              "kitchen": {
+                "toValue": "kitchen",
+                "text": [],
+                "rules": []
+              },
+              "lawn": {
+                "toValue": "lawn",
+                "text": [],
+                "rules": {
+                  "when entrance.objects.door.door is closed": {
+                    "message": "frontDoorNotOpen",
+                    "value": ".revert"
+                  }
+                }
+              }
+            },
+            "childEntities": [
+              {
+                "name": "door",
+                "path": "world.location.entrance.objects",
+                "properties": {
+                  "door": {
+                    "name": "door",
+                    "messages": {},
+                    "values": {
+                      "open": {
+                        "name": "open",
+                        "readableName": "Open",
+                        "text": [
+                          "The door is open."
+                        ],
+                        "disabled": false,
+                        "relationships": {
+                          "closed": {
+                            "toValue": "closed",
+                            "text": [
+                              "You are closing the door."
+                            ],
+                            "rules": []
+                          }
+                        },
+                        "childEntities": [],
+                        "rules": {
+                          "actions": [
+                            "close",
+                            "describe"
+                          ]
+                        }
+                      },
+                      "closed": {
+                        "name": "closed",
+                        "readableName": "Closed",
+                        "text": [
+                          "The door is closed."
+                        ],
+                        "disabled": false,
+                        "relationships": {
+                          "open": {
+                            "toValue": "open",
+                            "text": [
+                              "You are opening the door."
+                            ],
+                            "rules": []
+                          }
+                        },
+                        "childEntities": [],
+                        "rules": {
+                          "actions": [
+                            "open",
+                            "describe"
+                          ]
+                        }
+                      }
+                    },
+                    "actions": [
+                      "open",
+                      "describe"
+                    ],
+                    "currentValue": "closed"
+                  }
+                }
+              }
+            ],
+            "rules": {}
+          },
+          "kitchen": {
+            "name": "kitchen",
+            "readableName": "kitchen",
+            "text": [
+              "You are in the kitchen. The counters are new. It looks so different than how you remember. There's a lot of food here; far more food than two people would need."
+            ],
+            "disabled": false,
+            "relationships": {
+              "entrance": {
+                "toValue": "entrance",
+                "text": [],
+                "rules": []
+              },
+              "livingRoom": {
+                "toValue": "livingRoom",
+                "text": [],
+                "rules": []
+              }
+            },
+            "childEntities": [],
+            "rules": {}
+          },
+          "shed": {
+            "name": "shed",
+            "readableName": "shed",
+            "text": [
+              "You are in the shed. You hated this place. The disconnected pool equipment remains, though the pool is long gone. "
+            ],
+            "disabled": false,
+            "relationships": {
+              "lawn": {
+                "toValue": "lawn",
+                "text": [],
+                "rules": []
+              }
+            },
+            "childEntities": [],
+            "rules": {}
+          },
+          "lawn": {
+            "name": "lawn",
+            "readableName": "lawn",
+            "text": [
+              "You are on the lawn. It's freshly cut. Maybe a neighbour did this."
+            ],
+            "disabled": false,
+            "relationships": {
+              "shed": {
+                "toValue": "shed",
+                "text": [],
+                "rules": []
+              },
+              "entrance": {
+                "toValue": "entrance",
+                "text": [],
+                "rules": {
+                  "when entrance.objects.door.door is closed": {
+                    "message": "frontDoorNotOpen",
+                    "value": ".revert"
+                  }
+                }
+              },
+              "street": {
+                "toValue": "street",
+                "text": [],
+                "rules": []
+              }
+            },
+            "childEntities": [
+              {
+                "name": "ada",
+                "path": "world.location.lawn.people",
+                "properties": {
+                  "appearance": {
+                    "name": "appearance",
+                    "messages": {},
+                    "values": {
+                      "floating": {
+                        "name": "floating",
+                        "readableName": "floating",
+                        "text": [
+                          "The presence is floating above the lawn."
+                        ],
+                        "disabled": false,
+                        "relationships": {},
+                        "childEntities": [],
+                        "rules": {}
+                      }
+                    },
+                    "actions": [
+                      "describe"
+                    ],
+                    "currentValue": "floating"
+                  },
+                  "conversation": {
+                    "name": "conversation",
+                    "messages": {},
+                    "values": {
+                      "idle": {
+                        "name": "idle",
+                        "readableName": "idle",
+                        "text": [
+                          "The presence looks at you."
+                        ],
+                        "disabled": false,
+                        "relationships": {
+                          "whoAreYou": {
+                            "toValue": "whoAreYou",
+                            "text": [],
+                            "rules": []
+                          },
+                          "whoAreYouReally": {
+                            "toValue": "whoAreYouReally",
+                            "text": [],
+                            "rules": []
+                          },
+                          "whereAmI": {
+                            "toValue": "whereAmI",
+                            "text": [],
+                            "rules": []
+                          }
+                        },
+                        "childEntities": [],
+                        "rules": {}
+                      },
+                      "whoAreYou": {
+                        "name": "whoAreYou",
+                        "readableName": "\"Who are you?\"",
+                        "text": [
+                          "\"I am Ada. I am the friend who is always with you.\""
+                        ],
+                        "disabled": false,
+                        "relationships": {},
+                        "childEntities": [],
+                        "rules": {
+                          "disable": [
+                            "whoAreYou"
+                          ],
+                          "enable": [
+                            "whoAreYouReally"
+                          ],
+                          "value": "idle"
+                        }
+                      },
+                      "whoAreYouReally": {
+                        "name": "whoAreYouReally",
+                        "readableName": "\"Who are you really?\"",
+                        "text": [
+                          "\"I am your imaginary friend.\""
+                        ],
+                        "disabled": true,
+                        "relationships": {},
+                        "childEntities": [],
+                        "rules": {
+                          "value": "idle"
+                        }
+                      },
+                      "whereAmI": {
+                        "name": "whereAmI",
+                        "readableName": "\"Where am I?\"",
+                        "text": [
+                          "\"You are drifting through your memories. You are being assaulted right now, and so here you are, in the safety of your mind.\""
+                        ],
+                        "disabled": false,
+                        "relationships": {},
+                        "childEntities": [],
+                        "rules": {
+                          "value": "idle"
+                        }
+                      }
+                    },
+                    "actions": [
+                      "say"
+                    ],
+                    "currentValue": "idle"
+                  }
+                }
+              }
+            ],
+            "rules": {}
+          },
+          "street": {
+            "name": "street",
+            "readableName": "street",
+            "text": [
+              "You are on the street. A dense white fog blocks out the view of the other homes. The air gets thick walking in any direction; you only seem to be able to go back to the home."
+            ],
+            "disabled": false,
+            "relationships": {
+              "lawn": {
+                "toValue": "lawn",
+                "text": [],
+                "rules": []
+              }
+            },
+            "childEntities": [],
+            "rules": {}
+          }
+        },
+        "actions": [
+          "go",
+          "describe"
+        ],
+        "currentValue": "bedroom"
+      }
+    }
+  },
+  "actions": {
+    "close": {
+      "name": "close",
+      "path": "",
+      "templates": [
+        "close the @entity",
+        "close @entity",
+        "shut the @entity",
+        "shut @entity"
+      ],
+      "defaultPropertyValue": "closed",
+      "changesPropertyValue": true,
+      "describesPropertyValue": false
+    },
+    "describe": {
+      "name": "describe",
+      "path": "",
+      "templates": [
+        "describe @entity",
+        "describe at @entity",
+        "describe the @entity",
+        "describe at the @entity",
+        "look @entity",
+        "look at @entity",
+        "look the @entity",
+        "look at the @entity",
+        "inspect @entity",
+        "inspect at @entity",
+        "inspect the @entity",
+        "inspect at the @entity",
+        "examine @entity",
+        "examine at @entity",
+        "examine the @entity",
+        "examine at the @entity"
+      ],
+      "defaultPropertyValue": null,
+      "changesPropertyValue": false,
+      "describesPropertyValue": true
+    },
+    "go": {
+      "name": "go",
+      "path": "",
+      "templates": [
+        "go to the @value",
+        "go to @value",
+        "go the @value",
+        "go @value",
+        "travel to the @value",
+        "travel to @value",
+        "travel the @value",
+        "travel @value",
+        "walk to the @value",
+        "walk to @value",
+        "walk the @value",
+        "walk @value",
+        "head to the @value",
+        "head to @value",
+        "head the @value",
+        "head @value",
+        "enter to the @value",
+        "enter to @value",
+        "enter the @value",
+        "enter @value"
+      ],
+      "defaultPropertyValue": null,
+      "changesPropertyValue": true,
+      "describesPropertyValue": false
+    },
+    "open": {
+      "name": "open",
+      "path": "",
+      "templates": [
+        "open the @entity",
+        "open @entity"
+      ],
+      "defaultPropertyValue": "open",
+      "changesPropertyValue": true,
+      "describesPropertyValue": false
+    },
+    "read": {
+      "name": "read",
+      "path": "",
+      "templates": [
+        "read the @entity",
+        "read @entity"
+      ],
+      "defaultPropertyValue": "reading",
+      "changesPropertyValue": true,
+      "describesPropertyValue": false
+    },
+    "say": {
+      "name": "say",
+      "path": "",
+      "templates": [
+        "say @value",
+        "say @entity @value",
+        "say to @entity @value",
+        "tell @value",
+        "tell @entity @value",
+        "tell to @entity @value",
+        "speak @value",
+        "speak @entity @value",
+        "speak to @entity @value",
+        "ask @value",
+        "ask @entity @value",
+        "ask to @entity @value"
+      ],
+      "defaultPropertyValue": null,
+      "changesPropertyValue": true,
+      "describesPropertyValue": false
+    }
+  },
+  "version": 1
+}

@@ -1,4 +1,4 @@
 node_modules/*
-adventure-bundled.js
+dist/*
+*/story.json
 package-lock.json
-story.json

@@ -8,13 +8,21 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "adventure": "github:maelys-mcardle/adventure"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "adventure": "github:maelys-mcardle/adventure",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.0",
     "gulp-browserify": "^0.5.1",
-    "gulp-util": "^3.0.8"
+    "gulp-util": "^3.0.8",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
   }
 }
