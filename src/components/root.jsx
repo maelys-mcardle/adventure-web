@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import NavigationBar from './navbar.jsx';
 
 ReactDOM.render(
   <div>
-    <nav class="navbar navbar-dark bg-primary">
-      <span class="navbar-brand mb-0 h1">Adventure</span>
-    </nav>
+    <NavigationBar title="Adventure" />
 
     <div class="container">
         
