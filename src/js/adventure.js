@@ -1,4 +1,4 @@
 'use strict';
 
 window.Adventure = require('adventure');
-window.Story = require('./story');
+window.Story = require('../../dist/story');

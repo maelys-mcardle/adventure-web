@@ -3,7 +3,8 @@ const gulp  = require('gulp'),
       browserify = require('browserify'),
       babelify = require('babelify'),
       del = require('del'),
-      fs = require('fs');
+      fs = require('fs'),
+      mkdirp = require('mkdirp');
 
 const STORY_PATH = 'node_modules/adventure/examples/thehouse/';
 
@@ -11,7 +12,7 @@ const STORY_PATH = 'node_modules/adventure/examples/thehouse/';
 gulp.task('clean', function () {
   return del([
     'dist/*',
-    'src/js/story.json'
+    'dist'
   ]);
 });
 
@@ -47,7 +48,7 @@ gulp.task('transform-adventure', ['clean'], function() {
   createDirectory('dist/js');
 
   // Generate the story.json.
-  createStoryJson(STORY_PATH, 'src/js/story.json');
+  createStoryJson(STORY_PATH, 'dist/story.json');
 
   browserify('src/js/adventure.js')
     .transform(babelify, {presets: ["env", "react"]})
@@ -77,10 +78,7 @@ function createStoryJson(storyDirectory, outputFile)
 
 function createDirectory(path)
 {
-  try {
-    fs.mkdirSync(path);
-  } catch (err) {
-  }
+  mkdirp.sync(path);
 }
 
 gulp.task('default', [
