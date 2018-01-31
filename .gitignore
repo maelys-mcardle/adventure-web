@@ -1,4 +1,4 @@
 node_modules/*
 dist/*
-*/story.json
+src/js/story.json
 package-lock.json
