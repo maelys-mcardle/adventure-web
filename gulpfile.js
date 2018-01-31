@@ -7,6 +7,7 @@ const gulp  = require('gulp'),
 
 const STORY_PATH = 'node_modules/adventure/examples/thehouse/';
 
+// Delete previous files.
 gulp.task('clean', function () {
   return del([
     'dist/*',
@@ -14,6 +15,7 @@ gulp.task('clean', function () {
   ]);
 });
 
+// Copy static files.
 gulp.task('copy-static-files', ['clean'], function () {
 
   gulp.src('./src/index.html')
@@ -26,7 +28,8 @@ gulp.task('copy-static-files', ['clean'], function () {
     .pipe(gulp.dest('./dist/js/'));
 })
 
-gulp.task('transform-react', ['copy-static-files'], function() {
+// Create the components file.
+gulp.task('transform-react', ['clean'], function() {
 
   // Create the output directory.
   createDirectory('dist/js');
@@ -34,10 +37,10 @@ gulp.task('transform-react', ['copy-static-files'], function() {
   browserify('./src/components/root.jsx')
     .transform(babelify, {presets: ["env", "react"]})
     .bundle()
-    .pipe(fs.createWriteStream("dist/js/root.js"));
+    .pipe(fs.createWriteStream("dist/js/components.js"));
 })
 
-// create a default task and just log a message
+// Create the adventure.js file.
 gulp.task('transform-adventure', ['clean'], function() {
   
   // Create the output directory.
