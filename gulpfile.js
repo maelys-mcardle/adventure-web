@@ -1,12 +1,9 @@
-// grab our gulp packages
 const gulp  = require('gulp'),
-      gutil = require('gulp-util'),
-      browserify = require("browserify"),
-      babel = require('gulp-babel'),
       adventure = require('adventure'),
+      browserify = require('browserify'),
+      babelify = require('babelify'),
       del = require('del'),
-      fs = require('fs'),
-      babelify = require('babelify');
+      fs = require('fs');
 
 const STORY_PATH = 'node_modules/adventure/examples/thehouse/';
 
@@ -19,9 +16,6 @@ gulp.task('clean', function () {
 
 gulp.task('copy-static-files', ['clean'], function () {
 
-  fs.mkdirSync('./dist/js');
-  fs.mkdirSync('./dist/css');
-
   gulp.src('./src/index.html')
     .pipe(gulp.dest('./dist/'));
   
@@ -32,38 +26,30 @@ gulp.task('copy-static-files', ['clean'], function () {
     .pipe(gulp.dest('./dist/js/'));
 })
 
-gulp.task('transform-react', ['clean'], function() {
+gulp.task('transform-react', ['copy-static-files'], function() {
 
-  var options = {
-    entries: "./src/components/root.jsx",
-    extensions: [".js", ".jsx"],
-    paths: ["./src/components/"]
-  };
+  // Create the output directory.
+  createDirectory('dist/js');
 
-  return browserify(options)
-      .transform(babelify, {presets: ["env", "react"]})
-      .bundle()
-      .pipe(gulp.dest("./dist"));
+  browserify('./src/components/root.jsx')
+    .transform(babelify, {presets: ["env", "react"]})
+    .bundle()
+    .pipe(fs.createWriteStream("dist/js/root.js"));
 })
 
 // create a default task and just log a message
-gulp.task('transform-adventure', ['copy-static-files'], function() {
+gulp.task('transform-adventure', ['clean'], function() {
   
+  // Create the output directory.
+  createDirectory('dist/js');
+
   // Generate the story.json.
   createStoryJson(STORY_PATH, 'src/js/story.json');
 
-  browserify('./src/js/adventure.js')
-    .transform("babelify", {presets: ["env", "react"]})
+  browserify('src/js/adventure.js')
+    .transform(babelify, {presets: ["env", "react"]})
     .bundle()
-    .pipe(fs.createWriteStream("./dist/js/adventure.js"));
-
-  // Generate the adventure-bundled.js
- /* gulp.src('src/js/adventure.js')
-    .pipe(browserify({
-      insertGlobals : true,
-      paths: ['./node_modules','./src/js/']
-    }))
-    .pipe(gulp.dest('dist/js'))*/
+    .pipe(fs.createWriteStream('dist/js/adventure.js'));
 });
 
 function createStoryJson(storyDirectory, outputFile)
@@ -84,6 +70,14 @@ function createStoryJson(storyDirectory, outputFile)
 
   // Save the story to a file.
   writeFile(outputFile, storyJson);
+}
+
+function createDirectory(path)
+{
+  try {
+    fs.mkdirSync(path);
+  } catch (err) {
+  }
 }
 
 gulp.task('default', [
