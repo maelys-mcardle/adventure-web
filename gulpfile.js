@@ -29,7 +29,7 @@ gulp.task('copy-static-files', ['clean'], function () {
 })
 
 // Create the components file.
-gulp.task('transform-react', ['clean'], function() {
+gulp.task('transform-react', ['transform-adventure'], function() {
 
   // Create the output directory.
   createDirectory('dist/js');
