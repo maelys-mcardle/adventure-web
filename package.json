@@ -7,7 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/maelys-mcardle/adventure-web.git"
+  },
   "dependencies": {},
   "devDependencies": {
     "adventure": "github:maelys-mcardle/adventure",
@@ -20,10 +24,12 @@
     "browserify": "^15.2.0",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
-    "gulp-browserify": "^0.5.1",
     "mkdirp": "^0.5.1",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "webpack": "^3.10.0"
   },
   "browserify": {
     "transform": [

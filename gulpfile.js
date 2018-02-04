@@ -11,7 +11,6 @@ const STORY_PATH = 'node_modules/adventure/examples/thehouse/';
 // Delete previous files.
 gulp.task('clean', function () {
   return del([
-    'dist/*',
     'dist'
   ]);
 });
