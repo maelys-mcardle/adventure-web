@@ -10,8 +10,12 @@ export default class StoryOptions extends React.Component {
   }
 
   listItems() {
-    return this.props.options.map((text) =>
-      <a key={text} href="#" className="list-group-item list-group-item-action">
+    return this.props.options.map((text, index) =>
+      <a 
+        key={index} 
+        href="#" 
+        onClick={() => this.props.processInput(text)}
+        className="list-group-item list-group-item-action">
         {text}
       </a>
     );

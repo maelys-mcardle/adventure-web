@@ -26,19 +26,7 @@ gulp.task('copy-static-files', ['clean'], function () {
   
   gulp.src('./src/js/speech.js')
     .pipe(gulp.dest('./dist/js/'));
-})
-
-// Create the components file.
-gulp.task('transform-react', ['transform-adventure'], function() {
-
-  // Create the output directory.
-  createDirectory('dist/js');
-
-  browserify('./src/components/root.jsx')
-    .transform(babelify, {presets: ["env", "react"]})
-    .bundle()
-    .pipe(fs.createWriteStream("dist/js/components.js"));
-})
+});
 
 // Create the adventure.js file.
 gulp.task('transform-adventure', ['clean'], function() {
@@ -54,6 +42,18 @@ gulp.task('transform-adventure', ['clean'], function() {
     .bundle()
     .pipe(fs.createWriteStream('dist/js/adventure.js'));
 });
+
+// Create the components file.
+gulp.task('transform-react', ['transform-adventure'], function() {
+
+  // Create the output directory.
+  createDirectory('dist/js');
+
+  browserify('./src/components/root.jsx')
+    .transform(babelify, {presets: ["env", "react"]})
+    .bundle()
+    .pipe(fs.createWriteStream("dist/js/components.js"));
+})
 
 function createStoryJson(storyDirectory, outputFile)
 {
@@ -81,6 +81,5 @@ function createDirectory(path)
 }
 
 gulp.task('default', [
-  'copy-static-files', 
-  'transform-adventure', 
+  'copy-static-files',
   'transform-react']);

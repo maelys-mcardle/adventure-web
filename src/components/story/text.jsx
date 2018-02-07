@@ -12,8 +12,8 @@ export default class StoryText extends React.Component {
   }
 
   textParagraphs() {
-    return this.props.paragraphs.map((paragraph) =>
-      <p>
+    return this.props.paragraphs.map((paragraph, index) =>
+      <p key={index}>
         {paragraph}
       </p>
     );
