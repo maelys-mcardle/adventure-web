@@ -27,7 +27,7 @@ export default class Story extends React.Component {
   render() {
     return (
       <div>
-        <NavigationBar title={this.state.story.title} />
+        <NavigationBar story={this.state.story} />
         <div className="container">
           <StoryText paragraphs={this.state.storyText} />
           <StoryOptions 

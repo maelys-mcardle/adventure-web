@@ -10,7 +10,7 @@ export default class StoryOptions extends React.Component {
   }
 
   listItems() {
-    return this.props.options.map((text, index) =>
+    return this.props.options.sort().map((text, index) =>
       <a 
         key={index} 
         href="#" 
