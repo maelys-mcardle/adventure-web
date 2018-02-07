@@ -28,32 +28,20 @@ gulp.task('copy-static-files', ['clean'], function () {
     .pipe(gulp.dest('./dist/js/'));
 });
 
-// Create the adventure.js file.
-gulp.task('transform-adventure', ['clean'], function() {
-  
+// Create the components file.
+gulp.task('transform-react', ['copy-static-files'], function() {
+
   // Create the output directory.
   createDirectory('dist/js');
 
   // Generate the story.json.
   createStoryJson(STORY_PATH, 'dist/story.json');
 
-  browserify('src/js/adventure.js')
-    .transform(babelify, {presets: ["env", "react"]})
-    .bundle()
-    .pipe(fs.createWriteStream('dist/js/adventure.js'));
-});
-
-// Create the components file.
-gulp.task('transform-react', ['transform-adventure'], function() {
-
-  // Create the output directory.
-  createDirectory('dist/js');
-
   browserify('./src/components/root.jsx')
     .transform(babelify, {presets: ["env", "react"]})
     .bundle()
     .pipe(fs.createWriteStream("dist/js/components.js"));
-})
+});
 
 function createStoryJson(storyDirectory, outputFile)
 {
