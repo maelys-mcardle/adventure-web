@@ -23,9 +23,6 @@ gulp.task('copy-static-files', ['clean'], function () {
   
   gulp.src('./src/css/style.css')
     .pipe(gulp.dest('./dist/css/'));
-  
-  gulp.src('./src/js/speech.js')
-    .pipe(gulp.dest('./dist/js/'));
 });
 
 // Create the components file.
