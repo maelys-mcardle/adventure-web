@@ -11,6 +11,7 @@ export default class Story extends React.Component {
   constructor(props) {
     super(props);
     let story = this.loadStory(props);
+    window.document.title = story.title;
     this.state = {
       story: story,
       storyText: adventure.getStoryOutput(story),

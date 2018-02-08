@@ -12,7 +12,9 @@
     "type": "git",
     "url": "git://github.com/maelys-mcardle/adventure-web.git"
   },
-  "dependencies": {},
+  "dependencies": {
+    "express": "^4.16.2"
+  },
   "devDependencies": {
     "adventure": "github:maelys-mcardle/adventure",
     "babel-core": "^6.26.0",

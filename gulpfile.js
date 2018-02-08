@@ -4,19 +4,21 @@ const gulp  = require('gulp'),
       babelify = require('babelify'),
       del = require('del'),
       fs = require('fs'),
+      express = require('express'),
       mkdirp = require('mkdirp');
 
 const STORY_PATH = 'node_modules/adventure/examples/thehouse/';
+const SERVER_PORT = 8080;
 
 // Delete previous files.
-gulp.task('clean', function () {
+gulp.task('clean', () => {
   return del([
     'dist'
   ]);
 });
 
 // Copy static files.
-gulp.task('copy-static-files', ['clean'], function () {
+gulp.task('copy-static-files', ['clean'], () => {
 
   gulp.src('./src/index.html')
     .pipe(gulp.dest('./dist/'));
@@ -26,7 +28,7 @@ gulp.task('copy-static-files', ['clean'], function () {
 });
 
 // Create the components file.
-gulp.task('transform-react', ['copy-static-files'], function() {
+gulp.task('transform-react', ['copy-static-files'], () => {
 
   // Create the output directory.
   createDirectory('dist/js');
@@ -38,6 +40,13 @@ gulp.task('transform-react', ['copy-static-files'], function() {
     .transform(babelify, {presets: ["env", "react"]})
     .bundle()
     .pipe(fs.createWriteStream("dist/js/components.js"));
+});
+
+gulp.task('run-server', ['transform-react'], () => {
+  const app = express();
+  app.use(express.static('dist'));
+  app.listen(SERVER_PORT, 
+    () => console.log(`Server listening on ${SERVER_PORT}`));
 });
 
 function createStoryJson(storyDirectory, outputFile)
@@ -66,5 +75,4 @@ function createDirectory(path)
 }
 
 gulp.task('default', [
-  'copy-static-files',
-  'transform-react']);
+  'run-server']);
