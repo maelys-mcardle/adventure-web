@@ -10,3 +10,9 @@ Run the task runner:
 ```
 gulp
 ```
+
+Then open your browser to the following:
+
+```
+http://localhost:8080/
+```
