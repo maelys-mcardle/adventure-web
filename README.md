@@ -9,7 +9,7 @@ Make sure [NodeJS](https://nodejs.org/) and [Git](https://git-scm.com/) are
 installed. To retrieve the code and start developing, run the following in 
 a command-line prompt:
 
-```
+```sh
 # Download the source code.
 git clone https://github.com/maelys-mcardle/adventure-web
 
@@ -38,9 +38,9 @@ Edit the `package.json` file to point to the path of your story:
 
 ## Running the client
 
-Run the task runner, which will build the files you need and run the server:
+Start the server by running the following command:
 
-```
+```sh
 npm run start
 ```
 

@@ -4,7 +4,7 @@ export default class NavigationBar extends React.Component {
   render() {
     return (
       <nav className="navbar navbar-dark bg-primary justify-content-between">
-        <span className="navbar-brand mb-0 h1">
+        <span className="navbar-brand mb-0 h1 d-none d-sm-block">
           "{this.props.story.title}" by {this.props.story.author}
         </span>
         <form className="form-inline">
