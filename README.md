@@ -1,14 +1,47 @@
 # adventure-web
 
-This is a web platform to play stories written for 
+This is a web client to play stories written for 
 [Adventure](https://github.com/maelys-mcardle/adventure).
 
 ## Installation
 
-Run the task runner:
+Make sure [NodeJS](https://nodejs.org/) and [Git](https://git-scm.com/) are
+installed. To retrieve the code and start developing, run the following in 
+a command-line prompt:
 
 ```
-gulp
+# Download the source code.
+git clone https://github.com/maelys-mcardle/adventure-web
+
+# Switch to the repository.
+cd adventure-web
+
+# Install the dependencies.
+npm install
+```
+
+## Setting the story
+
+Edit the `package.json` file to point to the path of your story:
+
+```json
+{
+  "name": "adventure-web",
+  ...
+  "config": { 
+    "port": "8080",
+    "story": "node_modules/adventure/examples/thehouse/"
+  },
+  ...
+}
+```
+
+## Running the client
+
+Run the task runner, which will build the files you need and run the server:
+
+```
+npm run start
 ```
 
 Then open your browser to the following:

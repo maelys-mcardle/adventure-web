@@ -7,8 +7,8 @@ const gulp  = require('gulp'),
       express = require('express'),
       mkdirp = require('mkdirp');
 
-const STORY_PATH = 'node_modules/adventure/examples/thehouse/';
-const SERVER_PORT = 8080;
+const STORY_PATH = process.env.npm_package_config_story;
+const SERVER_PORT = process.env.npm_package_config_port;
 
 // Delete previous files.
 gulp.task('clean', () => {
@@ -29,9 +29,9 @@ gulp.task('copy-static-files', ['clean'], () => {
 
 // Create the components file.
 gulp.task('transform-react', ['copy-static-files'], () => {
-
+  console.log('PATH' + STORY_PATH);
   // Create the output directory.
-  createDirectory('dist/js');
+  mkdirp.sync('dist/js');
 
   // Generate the story.json.
   createStoryJson(STORY_PATH, 'dist/story.json');
@@ -51,14 +51,6 @@ gulp.task('run-server', ['transform-react'], () => {
 
 function createStoryJson(storyDirectory, outputFile)
 {
-  function writeFile(path, contents) {
-    fs.writeFile(path, contents, error => {
-      if (error) {
-        return console.log(error);
-      }
-    });
-  }
-
   // Load the story.
   const story = adventure.loadStory(storyDirectory);
 
@@ -66,12 +58,7 @@ function createStoryJson(storyDirectory, outputFile)
   const storyJson = JSON.stringify(story, null, 2);
 
   // Save the story to a file.
-  writeFile(outputFile, storyJson);
-}
-
-function createDirectory(path)
-{
-  mkdirp.sync(path);
+  fs.writeFileSync(outputFile, storyJson);
 }
 
 gulp.task('default', [
