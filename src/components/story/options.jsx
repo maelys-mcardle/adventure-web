@@ -3,7 +3,9 @@ import React from 'react';
 export default class StoryOptions extends React.Component {
   render() {
     return (
-      <div className="list-group top-spacer">
+      <div className="list-group list-group-flush">
+        <small className="list-group-item list-group-item-action active text-center">
+        </small>
         {this.listItems()}
       </div>
     );

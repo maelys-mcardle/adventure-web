@@ -73,10 +73,12 @@ export default class Story extends React.Component {
           speak={this.speak}
           restart={this.clearStory} />
         <div className="container">
-          <StoryText paragraphs={this.state.storyText} />
-          <StoryOptions 
-            options={adventure.getInputExamples(this.state.story)} 
-            processInput={this.processInput} />
+          <div className="card top-spacer">
+            <StoryText paragraphs={this.state.storyText} />
+            <StoryOptions 
+              options={adventure.getInputExamples(this.state.story)} 
+              processInput={this.processInput} />
+            </div>
         </div>
       </div>
     );

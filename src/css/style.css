@@ -5,3 +5,7 @@
 .left-spacer {
   margin-left: 0.5em;
 }
+
+body {
+  padding-bottom: 2.0em;
+}
