@@ -15,8 +15,13 @@ export default class NavigationBar extends React.Component {
     })
   }
 
+  startOver() {
+    this.props.restart();
+    this.setConfirmStartOver(false);
+  }
+
   renderStartOverButton() {
-    if (this.state.showConfirmStartOver) {
+    if (!this.state.showConfirmStartOver) {
       return (
         <button 
           className="btn btn-outline-light" 
@@ -28,11 +33,13 @@ export default class NavigationBar extends React.Component {
     } else {
       return (
         <span>
-          <strong>Are you sure?</strong>
+          <span className="navbar-brand">
+            Are you sure?
+          </span>
           <button 
-            className="btn btn-outline-danger left-spacer" 
+            className="btn btn-danger left-spacer" 
             type="button"
-            onClick={this.props.restart}>
+            onClick={() => this.startOver()}>
             Yes
           </button>
           <button 
