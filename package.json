@@ -2,9 +2,9 @@
   "name": "adventure-web",
   "version": "1.0.0",
   "description": "Web client for the Adventure interactive fiction engine",
-  "config": { 
+  "config": {
     "port": "8080",
-    "story": "node_modules/adventure/examples/thehouse/"
+    "story": "node_modules/adventure/examples/ottawa/"
   },
   "main": "gulpfile.js",
   "scripts": {
